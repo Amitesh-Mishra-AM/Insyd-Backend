@@ -1,6 +1,11 @@
 import app from "./app.js";
+import dotenv from "dotenv"
+import connectDb from "./config/db.js";
 
-const port= 8080;
+dotenv.config();
+const port= process.env.PORT||5000;
+
+connectDb();
 
 app.listen(port, ()=>{
     console.log(`Server is runnig on http://localhost:${port}`);
