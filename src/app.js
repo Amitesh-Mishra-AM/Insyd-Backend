@@ -4,9 +4,9 @@ import itemRoutes from "./routes/itemRoutes.js";
 
 const app = express();
 
-app.use(cors)   // middilewares
+app.use(cors())   // middilewares
 
-app.use(express.json)
+app.use(express.json())
 
 app.use("/api/items", itemRoutes);
 

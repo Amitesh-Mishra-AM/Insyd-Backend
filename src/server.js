@@ -9,4 +9,4 @@ connectDb();
 
 app.listen(port, ()=>{
     console.log(`Server is runnig on http://localhost:${port}`);
-})
+});
