@@ -10,11 +10,13 @@ app.use(cors({
 
 app.use(express.json())
 
+app.use("/api/items", itemRoutes);
+
 app.get('/',(req,res)=>{
     res.send("hello from app");
 })
 
-app.use("/api/items", itemRoutes);
+
 
 
 

@@ -77,3 +77,25 @@ export const deleteItem= async(req, res)=>{
         res.status(400).json({error: err.message});
     }
 }
+
+export const updateThreshold = async (req, res) => {
+  try {
+    const {threshold} = req.body;
+    if(threshold === undefined){
+      return res.status(400).json({ error: "Threshold is required" });
+    }
+    const parsedThreshold = Number(threshold);
+    if (isNaN(parsedThreshold) || parsedThreshold < 0){
+      return res.status(400).json({ error: "Invalid threshold value" });
+    }
+    const item = await Item.findById(req.params.id);
+    if(!item){
+      return res.status(404).json({ error: "Item not found" });
+    }
+    item.threshold = parsedThreshold;
+    await item.save();
+    res.json(item);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
