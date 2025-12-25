@@ -1,4 +1,4 @@
- Inventory Control – Backend
+# Inventory Control – Backend
 
 This repository contains the **backend API** for the Inventory Control system.  
 It provides REST endpoints for managing inventory items, stock updates, and threshold-based alerts.
