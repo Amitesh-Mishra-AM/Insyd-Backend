@@ -29,7 +29,6 @@ export const stockIn= async(req, res)=>{
         const {amount}=req.body;
         if(!amount || amount<=0){
             return res.status(400).json({error: "Invalid amount"});
-
         }
 
         const item= await Item.findById(req.params.id);
@@ -38,7 +37,7 @@ export const stockIn= async(req, res)=>{
             return res.status(404).json({error: "Item not found"});
         }
 
-        item.quantity+=amount;
+        item.quantity= Number(item.quantity)+ amount;
         await item.save();
         res.json(item);
     }catch (err){
@@ -58,11 +57,11 @@ export const stockOut= async(req, res)=>{
         if(!item){
             return res.status(404).json({error:"Item not found"});
         }
-        item.quantity=Math.max(0,item.quantity-amount);
+        item.quantity=Math.max(0,Number(item.quantity)-amount);
         await item.save();
         res.json(item);
     }catch(err){
         res.status(400).json({error: err.message});
     }
 
-}
+};
