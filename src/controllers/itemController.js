@@ -1,4 +1,4 @@
-import { Item } from "../models/Item.js";
+import{ Item}from "../models/Item.js";
 
 export const addItem= async(req, res)=>{
     try{
@@ -15,7 +15,7 @@ export const getItems= async(req, res)=>{
         const formattedItem = items.map((item) => ({
       ...item.toObject(),
       isLowStock: item.quantity <= item.threshold,
-    }));
+   }));
     res.json(formattedItem);
 
     }catch(err){
@@ -26,7 +26,7 @@ export const getItems= async(req, res)=>{
 
 export const stockIn= async(req, res)=>{
     try{
-        const {amount}=req.body;
+        const{amount}=req.body;
         if(!amount || amount<=0){
             return res.status(400).json({error: "Invalid amount"});
         }
@@ -47,7 +47,7 @@ export const stockIn= async(req, res)=>{
 
 export const stockOut= async(req, res)=>{
     try{
-        const {amount}=req.body;
+        const{amount}=req.body;
         if(!amount || amount <=0){
             return res.status(400).json({error: "Invalid amount"});
         }
@@ -78,24 +78,24 @@ export const deleteItem= async(req, res)=>{
     }
 }
 
-export const updateThreshold = async (req, res) => {
-  try {
-    const {threshold} = req.body;
+export const updateThreshold = async (req, res) =>{
+  try{
+    const{threshold} = req.body;
     if(threshold === undefined){
-      return res.status(400).json({ error: "Threshold is required" });
+      return res.status(400).json({error: "Threshold is required"});
     }
     const parsedThreshold = Number(threshold);
     if (isNaN(parsedThreshold) || parsedThreshold < 0){
-      return res.status(400).json({ error: "Invalid threshold value" });
+      return res.status(400).json({error: "Invalid threshold value"});
     }
     const item = await Item.findById(req.params.id);
     if(!item){
-      return res.status(404).json({ error: "Item not found" });
+      return res.status(404).json({error: "Item not found"});
     }
     item.threshold = parsedThreshold;
     await item.save();
     res.json(item);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
+ }catch (err){
+    res.status(400).json({error: err.message});
   }
 };
